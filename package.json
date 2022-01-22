@@ -1,0 +1,20 @@
+{
+  "name": "nanlabs-trello",
+  "version": "1.0.0",
+  "description": "API to create Trello cards",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "invoke": "node node_modules/.bin/serverless invoke -f ",
+    "invokeLocal": "node node_modules/.bin/serverless invoke local -f ",
+    "debug": "node --inspect-brk node_modules/.bin/serverless invoke local -f "
+  },
+  "keywords": [],
+  "author": "Joaquín Eduardo Arreguez",
+  "license": "MIT",
+  "dependencies": {
+    "ajv": "^8.9.0"
+  },
+  "devDependencies": {
+    "serverless": "^2.72.1"
+  }
+}
