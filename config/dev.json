@@ -1,0 +1,9 @@
+{
+    "trello": {
+        "baseURL": "https://api.trello.com",
+        "members": "/1/members/me",
+        "boards": "/1/boards",
+        "lists": "/1/lists",
+        "cards": "/1/cards"
+    }
+}
