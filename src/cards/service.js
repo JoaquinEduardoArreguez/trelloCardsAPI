@@ -22,9 +22,17 @@ async function sendRequest(requestParams = {}) {
     });
   }
 
-  console.log("\n\n");
-  console.log(response);
-  console.log("\n\n");
+  // Structured log to track requests
+  // maybe add a logger class
+  console.log("\n\n-------------------\n");
+  console.log({
+    source: "EXTERNAL_REQUEST",
+    method: requestParams.method,
+    url: requestParams.baseURL + requestParams.url,
+    timestamp: Date.now(),
+    response: JSON.stringify({ status: response.status, data: response.data }),
+  });
+  console.log("\n-------------------\n\n");
 
   return { status: response.status, message: response.data };
 }

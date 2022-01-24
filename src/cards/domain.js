@@ -9,21 +9,35 @@ const {
   getRandomBoardMember,
 } = require("./helpers/randomValues");
 
+const { getBoardListByName } = require("./helpers/getters");
+
 // Issue mapping strategy
-const issueMapper = async (payload) => ({
-  name: payload.title,
-  desc: payload.description,
-  idList: process.env.NAN_TODO_LIST_ID,
-});
+const issueMapper = async (payload) => {
+  const todoListId = await getBoardListByName(
+    process.env.NAN_DEFAULT_BOARD_ID,
+    process.env.NAN_DEFAUT_LIST_NAME
+  );
+  return {
+    name: payload.title,
+    desc: payload.description,
+    idList: todoListId,
+  };
+};
 
 // Bug mapping strategy
 const bugMapper = async (payload) => {
-  const idMembers = await getRandomBoardMember(process.env.NAN_BOARD_ID);
+  const idMembers = await getRandomBoardMember(
+    process.env.NAN_DEFAULT_BOARD_ID
+  );
+  const todoListId = await getBoardListByName(
+    process.env.NAN_DEFAULT_BOARD_ID,
+    process.env.NAN_DEFAUT_LIST_NAME
+  );
   return {
     name: `bug-${getRandomWord()}-${getRandomNumber()}`,
     desc: payload.description,
     idLabels: process.env.NAN_BUG_LABEL_ID,
-    idList: process.env.NAN_TODO_LIST_ID,
+    idList: todoListId,
     idMembers,
   };
 };
@@ -35,11 +49,17 @@ const labelsMapper = {
   Research: process.env.NAN_RESEARCH_LABEL_ID,
 };
 
-const taskMapper = async (payload) => ({
-  name: payload.title,
-  idLabels: labelsMapper[payload.category],
-  idList: process.env.NAN_TODO_LIST_ID,
-});
+const taskMapper = async (payload) => {
+  const todoListId = await getBoardListByName(
+    process.env.NAN_DEFAULT_BOARD_ID,
+    process.env.NAN_DEFAUT_LIST_NAME
+  );
+  return {
+    name: payload.title,
+    idLabels: labelsMapper[payload.category],
+    idList: todoListId,
+  };
+};
 
 // Strategies index
 const strategies = {
