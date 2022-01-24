@@ -6,6 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "invoke": "node node_modules/.bin/serverless invoke -f ",
     "invokeLocal": "node node_modules/.bin/serverless invoke local -f ",
+    "localServer": "node node_modules/.bin/serverless offline",
     "debug": "node --inspect-brk node_modules/.bin/serverless invoke local -f "
   },
   "keywords": [],
@@ -16,6 +17,7 @@
     "axios": "^0.25.0"
   },
   "devDependencies": {
-    "serverless": "^2.72.1"
+    "serverless": "^2.72.1",
+    "serverless-offline": "^8.3.1"
   }
 }

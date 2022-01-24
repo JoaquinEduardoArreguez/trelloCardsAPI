@@ -9,6 +9,9 @@ async function createCardHandler(event) {
     const response = await createCardDomain(payload);
     return {
       statusCode: response.status,
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(response.message),
     };
   } catch (error) {

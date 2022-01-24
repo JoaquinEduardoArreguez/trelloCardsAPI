@@ -8,6 +8,9 @@ provider:
   lambdaHashingVersion: "20201221"
   stage: ${opt:stage, 'dev'}
 
+plugins:
+  - serverless-offline
+
 custom:
   config: ${file(config/${self:provider.stage}.json)}
   secrets:
@@ -34,5 +37,5 @@ functions:
       TRELLO_BOARDS: ${self:custom.config.trello.boards}
     events:
       - httpApi:
-          path: /
+          path: /cards
           method: post

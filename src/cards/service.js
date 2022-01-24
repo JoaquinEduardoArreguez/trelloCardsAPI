@@ -24,7 +24,6 @@ async function sendRequest(requestParams = {}) {
 
   // Structured log to track requests
   // maybe add a logger class
-  console.log("\n\n-------------------\n");
   console.log({
     source: "EXTERNAL_REQUEST",
     method: requestParams.method,
@@ -32,7 +31,6 @@ async function sendRequest(requestParams = {}) {
     timestamp: Date.now(),
     response: JSON.stringify({ status: response.status, data: response.data }),
   });
-  console.log("\n-------------------\n\n");
 
   return { status: response.status, message: response.data };
 }
