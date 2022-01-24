@@ -1,11 +1,21 @@
 "use strict";
 
-const randomWords = ["alfa", "bravo", "charlie", "delta", "echo", "foxtrot"];
+const { getBoardMembers } = require("../service");
 
-const getRandomWord = () => {
-  return randomWords[Math.floor(Math.random() * randomWords.length)];
-};
+const getRandomItem = (array) =>
+  array[Math.floor(Math.random() * array.length)];
+
+const randomWords = ["alfa", "bravo", "charlie", "delta", "echo", "foxtrot"];
+const getRandomWord = () => getRandomItem(randomWords);
 
 const getRandomNumber = () => Math.floor(Math.random() * 100);
 
-module.exports = { getRandomNumber, getRandomWord };
+const getRandomBoardMember = async (boardId) => {
+  const { message: members } = await getBoardMembers(boardId);
+
+  const memberIds = members.map((member) => member.id);
+
+  return getRandomItem(memberIds);
+};
+
+module.exports = { getRandomNumber, getRandomWord, getRandomBoardMember };

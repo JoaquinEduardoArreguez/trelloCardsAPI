@@ -3,24 +3,30 @@
 const { validateInput } = require("./helpers/inputValidator");
 const { createCard } = require("./service");
 
-const { getRandomNumber, getRandomWord } = require("./helpers/randomValues");
+const {
+  getRandomNumber,
+  getRandomWord,
+  getRandomBoardMember,
+} = require("./helpers/randomValues");
 
 // Issue mapping strategy
-const issueMapper = (payload) => ({
+const issueMapper = async (payload) => ({
   name: payload.title,
   desc: payload.description,
   idList: process.env.NAN_TODO_LIST_ID,
 });
 
 // Bug mapping strategy
-const bugMapper = (payload) => ({
-  name: `bug-${getRandomWord()}-${getRandomNumber()}`,
-  desc: payload.description,
-  idLabels: process.env.NAN_BUG_LABEL_ID,
-  idList: process.env.NAN_TODO_LIST_ID,
-  // Assign to a random member of the board
-  idMembers: process.env.NAN_BOARD_MEMBER_ID,
-});
+const bugMapper = async (payload) => {
+  const idMembers = await getRandomBoardMember(process.env.NAN_BOARD_ID);
+  return {
+    name: `bug-${getRandomWord()}-${getRandomNumber()}`,
+    desc: payload.description,
+    idLabels: process.env.NAN_BUG_LABEL_ID,
+    idList: process.env.NAN_TODO_LIST_ID,
+    idMembers,
+  };
+};
 
 // Task mapping strategy
 const labelsMapper = {
@@ -29,7 +35,7 @@ const labelsMapper = {
   Research: process.env.NAN_RESEARCH_LABEL_ID,
 };
 
-const taskMapper = (payload) => ({
+const taskMapper = async (payload) => ({
   name: payload.title,
   idLabels: labelsMapper[payload.category],
   idList: process.env.NAN_TODO_LIST_ID,
@@ -44,7 +50,7 @@ const strategies = {
 
 async function createCardDomain(payload) {
   validateInput(payload);
-  const mappedPayload = strategies[payload.type](payload);
+  const mappedPayload = await strategies[payload.type](payload);
   const response = await createCard(mappedPayload);
   return { status: response.status, message: response.message };
 }
