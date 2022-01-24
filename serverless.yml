@@ -1,14 +1,37 @@
 service: nanlabs-trello
+variablesResolutionMode: 20210326
 frameworkVersion: "2 || 3"
 
 provider:
   name: aws
   runtime: nodejs14.x
   lambdaHashingVersion: "20201221"
+  stage: ${opt:stage, 'dev'}
+
+custom:
+  config: ${file(config/${self:provider.stage}.json)}
+  secrets:
+    trello: ${ssm:/aws/reference/secretsmanager/trello}
 
 functions:
   createCard:
     handler: src/cards/handler.createCardHandler
+    environment:
+      # Keys
+      TRELLO_API_KEY: ${self:custom.secrets.trello.trelloAPIKey}
+      TRELLO_API_CLIENT_TOKEN: ${self:custom.secrets.trello.trelloAPIClientToken}
+      # Hardcoded Trello account values
+      NAN_DEFAULT_BOARD_ID: ${self:custom.config.trello.default.nanBoardId}
+      NAN_DEFAUT_LIST_NAME: ${self:custom.config.trello.default.nanListName}
+
+      NAN_MAINTENANCE_LABEL_ID: ${self:custom.config.trello.labels.nanMaintenanceLabelId}
+      NAN_TEST_LABEL_ID: ${self:custom.config.trello.labels.nanTestLabelId}
+      NAN_BUG_LABEL_ID: ${self:custom.config.trello.labels.nanBugLabelId}
+      NAN_RESEARCH_LABEL_ID: ${self:custom.config.trello.labels.nanResearchLabelId}
+      # URLs
+      TRELLO_BASEURL: ${self:custom.config.trello.baseURL}
+      TRELLO_CARDS: ${self:custom.config.trello.cards}
+      TRELLO_BOARDS: ${self:custom.config.trello.boards}
     events:
       - httpApi:
           path: /

@@ -1,0 +1,17 @@
+{
+    "trello": {
+        "baseURL": "https://api.trello.com",
+        "boards": "/1/boards",
+        "cards": "/1/cards",
+        "default": {
+            "nanBoardId": "61edef1f163b851da3bc27e8",
+            "nanListName": "To Do"
+        },
+        "labels": {
+            "nanMaintenanceLabelId": "61edef1f8166f3875318b7f4",
+            "nanTestLabelId": "61edef1f8166f3875318b7f7",
+            "nanBugLabelId": "61edef1f8166f3875318b7f8",
+            "nanResearchLabelId": "61edef1f8166f3875318b7fb"
+        }
+    }
+}
