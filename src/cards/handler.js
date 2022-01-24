@@ -6,10 +6,10 @@ const { FaultHandled, ErrorHandled } = require("../util/error");
 async function createCardHandler(event) {
   try {
     const payload = JSON.parse(event.body);
-    const response = createCardDomain(payload);
+    const response = await createCardDomain(payload);
     return {
-      statusCode: 200,
-      body: typeof response === "string" ? response : JSON.stringify(response),
+      statusCode: response.status,
+      body: JSON.stringify(response.message),
     };
   } catch (error) {
     if (error instanceof ErrorHandled) {
