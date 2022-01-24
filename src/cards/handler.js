@@ -13,7 +13,6 @@ async function createCardHandler(event) {
     };
   } catch (error) {
     if (error instanceof ErrorHandled) {
-      error.publish();
       return error;
     }
     error = FaultHandled.captureUnhanlded(error, {
