@@ -21,8 +21,8 @@ functions:
       TRELLO_API_KEY: ${self:custom.secrets.trello.trelloAPIKey}
       TRELLO_API_CLIENT_TOKEN: ${self:custom.secrets.trello.trelloAPIClientToken}
       # Hardcoded Trello account values
-      NAN_BOARD_ID: ${self:custom.config.trello.nanBoardId}
-      NAN_TODO_LIST_ID: ${self:custom.config.trello.nanToDoListId}
+      NAN_DEFAULT_BOARD_ID: ${self:custom.config.trello.default.nanBoardId}
+      NAN_DEFAUT_LIST_NAME: ${self:custom.config.trello.default.nanListName}
 
       NAN_MAINTENANCE_LABEL_ID: ${self:custom.config.trello.labels.nanMaintenanceLabelId}
       NAN_TEST_LABEL_ID: ${self:custom.config.trello.labels.nanTestLabelId}
