@@ -1,11 +1,52 @@
 "use strict";
 
 const { validateInput } = require("./helpers/inputValidator");
+const { createCard } = require("./service");
 
-function createCardDomain(payload) {
+const { getRandomNumber, getRandomWord } = require("./helpers/randomValues");
+
+// Issue mapping strategy
+const issueMapper = (payload) => ({
+  name: payload.title,
+  desc: payload.description,
+  idList: process.env.NAN_TODO_LIST_ID,
+});
+
+// Bug mapping strategy
+const bugMapper = (payload) => ({
+  name: `bug-${getRandomWord()}-${getRandomNumber()}`,
+  desc: payload.description,
+  idLabels: process.env.NAN_BUG_LABEL_ID,
+  idList: process.env.NAN_TODO_LIST_ID,
+  // Assign to a random member of the board
+  idMembers: process.env.NAN_BOARD_MEMBER_ID,
+});
+
+// Task mapping strategy
+const labelsMapper = {
+  Maintenance: process.env.NAN_MAINTENANCE_LABEL_ID,
+  Test: process.env.NAN_TEST_LABEL_ID,
+  Research: process.env.NAN_RESEARCH_LABEL_ID,
+};
+
+const taskMapper = (payload) => ({
+  name: payload.title,
+  idLabels: labelsMapper[payload.category],
+  idList: process.env.NAN_TODO_LIST_ID,
+});
+
+// Strategies index
+const strategies = {
+  issue: issueMapper,
+  bug: bugMapper,
+  task: taskMapper,
+};
+
+async function createCardDomain(payload) {
   validateInput(payload);
-
-  return { message: "Everything allright" };
+  const mappedPayload = strategies[payload.type](payload);
+  const response = await createCard(mappedPayload);
+  return { status: response.status, message: response.message };
 }
 
 module.exports = { createCardDomain };
