@@ -20,9 +20,19 @@ functions:
       # Keys
       TRELLO_API_KEY: ${self:custom.secrets.trello.trelloAPIKey}
       TRELLO_API_CLIENT_TOKEN: ${self:custom.secrets.trello.trelloAPIClientToken}
+      # Hardcoded Trello account values
+      NAN_BOARD_ID: ${self:custom.config.trello.nanBoardId}
+      NAN_TODO_LIST_ID: ${self:custom.config.trello.nanToDoListId}
+      NAN_BOARD_MEMBER_ID: ${self:custom.config.trello.nanBoardMemberId}
+
+      NAN_MAINTENANCE_LABEL_ID: ${self:custom.config.trello.labels.nanMaintenanceLabelId}
+      NAN_TEST_LABEL_ID: ${self:custom.config.trello.labels.nanTestLabelId}
+      NAN_BUG_LABEL_ID: ${self:custom.config.trello.labels.nanBugLabelId}
+      NAN_RESEARCH_LABEL_ID: ${self:custom.config.trello.labels.nanResearchLabelId}
       # URLs
-      TRELLO_BASEPATH: ${self:custom.config.trello.baseURL}
+      TRELLO_BASEURL: ${self:custom.config.trello.baseURL}
       TRELLO_CARDS: ${self:custom.config.trello.cards}
+      TRELLO_BOARDS: ${self:custom.config.trello.boards}
     events:
       - httpApi:
           path: /

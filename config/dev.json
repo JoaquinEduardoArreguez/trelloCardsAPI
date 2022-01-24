@@ -1,9 +1,16 @@
 {
     "trello": {
         "baseURL": "https://api.trello.com",
-        "members": "/1/members/me",
         "boards": "/1/boards",
-        "lists": "/1/lists",
-        "cards": "/1/cards"
+        "cards": "/1/cards",
+        "nanBoardId": "61edef1f163b851da3bc27e8",
+        "nanToDoListId": "61edef1f163b851da3bc27e9",
+        "nanBoardMemberId": "61eb21678f59a01b770ae54c",
+        "labels": {
+            "nanMaintenanceLabelId": "61edef1f8166f3875318b7f4",
+            "nanTestLabelId": "61edef1f8166f3875318b7f7",
+            "nanBugLabelId": "61edef1f8166f3875318b7f8",
+            "nanResearchLabelId": "61edef1f8166f3875318b7fb"
+        }
     }
 }
