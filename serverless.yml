@@ -23,7 +23,6 @@ functions:
       # Hardcoded Trello account values
       NAN_BOARD_ID: ${self:custom.config.trello.nanBoardId}
       NAN_TODO_LIST_ID: ${self:custom.config.trello.nanToDoListId}
-      NAN_BOARD_MEMBER_ID: ${self:custom.config.trello.nanBoardMemberId}
 
       NAN_MAINTENANCE_LABEL_ID: ${self:custom.config.trello.labels.nanMaintenanceLabelId}
       NAN_TEST_LABEL_ID: ${self:custom.config.trello.labels.nanTestLabelId}
